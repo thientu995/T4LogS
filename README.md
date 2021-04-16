@@ -19,6 +19,10 @@ View More:
 1. <https://github.com/dotnet/standard/blob/master/docs/versions/netstandard2.0.md>
 1. <https://docs.microsoft.com/en-us/dotnet/standard/net-standard>
 
+## Installation
+### Nuget Package
+
+
 ## Using the Code
 
 - Initial Configuration (CALLING ONLY ONE in Project)
