@@ -1,7 +1,30 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>T4LogS - T4 Logs System for ASP.NET CORE
+
+What is T4LogS?
+
+1. The main target: Support for storing Exception information arising from many different projects becomes easier with centralized storage.
+
+2. Microservices architecture, T4LogS support recording Exception from Small-Services with centralized storage.
+
+3. In addition to the main information from Exception: Message, StackTrace. T4LogS also stores more information from Exception's properties.
+
+4. Support classification T4LogSType: Error, Warning, Log, Info, Debug, Audit, Time, Other.
+
+5. T4LogSWriteTime: Support for programmers to record the execution time of any Function (Method) in units: ns, ms, s.
+
+6. Future, T4LogS will develop classes for methods Get, Read log files.</Description>
+    <Product>T4LogS - T4 Logs System for ASP.NET CORE</Product>
+    <Company>T4VN</Company>
+    <Authors>Nguyen Thien Tu</Authors>
+    <PackageProjectUrl>https://github.com/thientu995/T4LogS</PackageProjectUrl>
+    <PackageTags>t4vn, t4logs, Exception,Logs System,ASP.NET CORE</PackageTags>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/thientu995/T4LogS</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -19,9 +19,12 @@ View More:
 1. <https://github.com/dotnet/standard/blob/master/docs/versions/netstandard2.0.md>
 1. <https://docs.microsoft.com/en-us/dotnet/standard/net-standard>
 
-## Installation
-### Nuget Package
+## Installation Nuget Package
+### T4LogS.Core (Main)
+<https://www.nuget.org/packages/T4LogS.Core/1.0.0>
 
+### T4LogS.AspCore (ASP.NET Core)
+<https://www.nuget.org/packages/T4LogS.AspCore>
 
 ## Using the Code
 
