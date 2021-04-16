@@ -21,7 +21,7 @@ View More:
 
 ## Installation Nuget Package
 ### T4LogS.Core (Main)
-<https://www.nuget.org/packages/T4LogS.Core/1.0.0>
+<https://www.nuget.org/packages/T4LogS.Core>
 
 ### T4LogS.AspCore (ASP.NET Core)
 <https://www.nuget.org/packages/T4LogS.AspCore>
