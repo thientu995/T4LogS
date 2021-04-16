@@ -14,12 +14,17 @@ namespace T4LogS.AspCore
     {
         public static Task<Core.T4LogSWriteException> Execute(HttpContext httpContext)
         {
+            return T4LogSExtensions.Execute(httpContext, "");
+        }
+
+        public static Task<Core.T4LogSWriteException> Execute(HttpContext httpContext, string description)
+        {
             return Task.Run<Core.T4LogSWriteException>(() =>
             {
                 var exceptionFeature = httpContext.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
                 if (exceptionFeature != null)
                 {
-                    using (Core.T4LogSWriteException log = new Core.T4LogSWriteException(exceptionFeature.Error, T4LogSType.Error))
+                    using (Core.T4LogSWriteException log = new Core.T4LogSWriteException(exceptionFeature.Error, T4LogSType.Error, description))
                     {
                         if (!string.IsNullOrEmpty(exceptionFeature.Path))
                         {

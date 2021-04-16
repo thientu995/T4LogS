@@ -27,8 +27,9 @@ namespace T4LogS.Example.ASPCore
         {
             services.AddT4LogS(options =>
             {
-                options.SaveDetails = true;
-                options.ExtensionCustom = "html";
+                options.SaveFileCustom = true;
+                options.SaveDetails = true;// View details: get all property exception
+                options.SaveFileJson = true;// Accept save file json
             });
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -44,7 +45,7 @@ namespace T4LogS.Example.ASPCore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (false && env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -55,8 +56,7 @@ namespace T4LogS.Example.ASPCore
                 {
                     options.Run((RequestDelegate)(async (context) =>
                     {
-                        var error = await T4LogSExtensions.Execute(context);
-                        error.Object.Description = "Example: username logined!";
+                        var error = await T4LogSExtensions.Execute(context, "Example: username logined!");
                         System.Diagnostics.Debug.WriteLine(error.Exception);
                         await context.Response.WriteAsync(error.Object.Message);
                     }));

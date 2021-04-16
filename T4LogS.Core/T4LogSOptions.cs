@@ -13,6 +13,7 @@ namespace T4LogS.Core
 <table>
 <caption style=""text-align:left"">
     <p><b>Date Time:</b> {{DateTime}}</p>
+    <p><b>Description:</b> {{Description}}</p>
     <p><b>Message:</b> {{Message}}</p>
     <p><b>Stack Trace:</b> {{StackTrace}}</p>
 </caption>
@@ -58,7 +59,7 @@ namespace T4LogS.Core
                 logsPath = value;
             }
         }
-        public bool SaveFileCustomJson
+        public bool SaveFileJson
         {
             get
             {
@@ -101,6 +102,17 @@ namespace T4LogS.Core
             set
             {
                 breakLineCustom = value;
+            }
+        }
+        public string FormatTextCustom
+        {
+            get
+            {
+                return formatTextCustom;
+            }
+            set
+            {
+                formatTextCustom = value;
             }
         }
     }

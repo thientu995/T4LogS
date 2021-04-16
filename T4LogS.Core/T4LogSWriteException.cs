@@ -10,7 +10,7 @@ namespace T4LogS.Core
     public class T4LogSWriteException : T4LogSWriteBase, IDisposable
     {
         public readonly Exception Exception;
-        public T4LogSObject Object { get; private set; }
+        public readonly T4LogSObject Object;
 
         private string strObjectFormatText;
         public string StrObjectFormatText
@@ -62,8 +62,8 @@ namespace T4LogS.Core
             }
         }
 
-        public T4LogSWriteException(Exception ex, T4LogSType status) : this(ex, ex.GetType(), status) { }
-        public T4LogSWriteException(Exception ex, Type targetType, T4LogSType status)
+        public T4LogSWriteException(Exception ex, T4LogSType status, string description = "") : this(ex, ex.GetType(), status, description) { }
+        public T4LogSWriteException(Exception ex, Type targetType, T4LogSType status, string description = "")
         {
             if (this.status == T4LogSType.Time)
             {
@@ -78,20 +78,29 @@ namespace T4LogS.Core
                 DateTime = DateTime.Now,
                 Message = this.Exception.Message,
                 StackTrace = this.Exception.StackTrace,
+                Description = description,
             };
         }
 
         public void AppendDetail(T4LogSDetail value)
         {
             if (T4LogSOptions.saveDetails)
-                this.Object.Details.Add(value);
+            {
+                var lstTemp = new List<T4LogSDetail>(this.Object.Details);
+                lstTemp.Add(value);
+                this.Object.Details = new List<T4LogSDetail>(lstTemp);
+            }
         }
 
         public void AppendRangeDetail(IEnumerable<T4LogSDetail> value)
         {
             if (T4LogSOptions.saveDetails)
-                this.Object.Details.AddRange(value);
-
+            {
+                foreach (var item in value)
+                {
+                    this.AppendDetail(item);
+                }
+            }
         }
 
         private void addPropertiesObjectDetails()
@@ -126,6 +135,7 @@ namespace T4LogS.Core
         {
 
             return obj
+                .Replace(T4LogSCommon.replaceFormatText(nameof(this.Object.Description)), T4LogSCommon.replaceNewLine(this.Object.Description))
                 .Replace(T4LogSCommon.replaceFormatText(nameof(this.Object.Message)), T4LogSCommon.replaceNewLine(this.Object.Message))
                 .Replace(T4LogSCommon.replaceFormatText(nameof(this.Object.StackTrace)), T4LogSCommon.replaceNewLine(this.Object.StackTrace))
                 .Replace(T4LogSCommon.replaceFormatText(nameof(this.Object.DateTime)), this.Object.DateTime.ToString(T4LogSCommon.formatDateTimeFull));

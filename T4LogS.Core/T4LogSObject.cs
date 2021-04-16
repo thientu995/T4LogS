@@ -13,11 +13,11 @@ namespace T4LogS.Core
 
     public class T4LogSObject
     {
-        public List<T4LogSDetail> Details { get; set; }
-        public string Message { get; set; }
-        public string StackTrace { get; set; }
-        public string Description { get; set; }
-        public DateTime DateTime { get; set; }
+        public IEnumerable<T4LogSDetail> Details { get; internal set; }
+        public string Message { get; internal set; }
+        public string StackTrace { get; internal set; }
+        public string Description { get; internal set; }
+        public DateTime DateTime { get; internal set; }
     }
 
     public enum T4LogSType

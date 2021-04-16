@@ -6,14 +6,24 @@ namespace T4LogS.Example.ConsoleCore
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(lstF.Count);
             try
             {
-                int.Parse("ab");
+                int.Parse("a");
             }
             catch (Exception ex)
             {
-                new T4LogS.Core.T4LogSWriteException(ex, Core.T4LogSType.Error).Dispose();
+                //Write log fast
+                new T4LogS.Core.T4LogSWriteException(ex, Core.T4LogSType.Error, "Description (Optional, default String.Empty)").Dispose();
+                //or write append detail
+                using (var log = new T4LogS.Core.T4LogSWriteException(ex, Core.T4LogSType.Error))
+                {
+                    log.AppendDetail(new Core.T4LogSDetail()
+                    {
+                        Name = "Example Append Name",
+                        TargetName = "Example Append Target Name",
+                        Value = "Example Append Value",
+                    });
+                }
             }
             Console.ReadLine();
         }
