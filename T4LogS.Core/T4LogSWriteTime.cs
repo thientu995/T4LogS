@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace T4LogS.Core
 {
-    public class T4LogSWriteTime : T4LogSWriteBase, IDisposable
+    public class T4LogSWriteTime : T4LogSWriteBase
     {
         public readonly Stopwatch sw;
         private string funcName;
@@ -40,7 +40,7 @@ namespace T4LogS.Core
         }
 
         ~T4LogSWriteTime() => this.Dispose();
-        public void Dispose()
+        public override void Dispose()
         {
             if (!this.isExited)
             {

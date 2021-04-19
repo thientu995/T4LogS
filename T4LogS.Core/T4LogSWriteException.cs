@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace T4LogS.Core
 {
-    public class T4LogSWriteException : T4LogSWriteBase, IDisposable
+    public class T4LogSWriteException : T4LogSWriteBase
     {
         public readonly Exception Exception;
         public readonly T4LogSErrorObject Object;
@@ -150,7 +150,7 @@ namespace T4LogS.Core
         }
 
         ~T4LogSWriteException() { this.Dispose(); }
-        public void Dispose()
+        public override void Dispose()
         {
             this.saveObject();
         }
