@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "T4LogS.Example.ConsoleCore": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "T4LogSManagementProject": "../../../../T4LogS.Example.T4LogSManagement"
+      }
+    }
+  }
+}

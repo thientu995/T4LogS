@@ -19,7 +19,7 @@ namespace T4LogS.AspCore
 
         public static Task<Core.T4LogSWriteException> Execute(HttpContext httpContext, string description)
         {
-            return Task.Run<Core.T4LogSWriteException>(() =>
+            return Task.Run(() =>
             {
                 var exceptionFeature = httpContext.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
                 if (exceptionFeature != null)
@@ -28,7 +28,7 @@ namespace T4LogS.AspCore
                     {
                         if (!string.IsNullOrEmpty(exceptionFeature.Path))
                         {
-                            log.AppendDetail(new Core.T4LogSDetail()
+                            log.AppendDetail(new Core.T4LogSErrorDetail()
                             {
                                 TargetName = "Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature",
                                 Name = "Path",

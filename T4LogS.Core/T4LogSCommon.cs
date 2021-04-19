@@ -22,12 +22,12 @@ namespace T4LogS.Core
             return regex_newline.Replace(obj, T4LogSOptions.breakLineCustom);
         }
 
-        public static ICollection<T4LogSDetail> ToT4LogObjects(this PropertyInfo[] properties, object obj)
+        public static ICollection<T4LogSErrorDetail> ToT4LogObjects(this PropertyInfo[] properties, object obj)
         {
-            ICollection<T4LogSDetail> lst = new List<T4LogSDetail>();
+            ICollection<T4LogSErrorDetail> lst = new List<T4LogSErrorDetail>();
             foreach (PropertyInfo item in properties)
             {
-                T4LogSDetail objPro = item.ToT4LogObject(obj);
+                T4LogSErrorDetail objPro = item.ToT4LogObject(obj);
                 if (objPro != null)
                 {
                     lst.Add(objPro);
@@ -36,13 +36,13 @@ namespace T4LogS.Core
             return lst;
         }
 
-        public static T4LogSDetail ToT4LogObject(this PropertyInfo pi, object obj)
+        public static T4LogSErrorDetail ToT4LogObject(this PropertyInfo pi, object obj)
         {
             try
             {
                 object value = pi.GetValue(obj, null);
                 string strValue = JsonConvert.SerializeObject(value);
-                return new T4LogSDetail()
+                return new T4LogSErrorDetail()
                 {
                     TargetName = obj.GetType().FullName,
                     Name = pi.Name,

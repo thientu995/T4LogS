@@ -10,7 +10,7 @@ namespace T4LogS.Core
     public class T4LogSWriteException : T4LogSWriteBase, IDisposable
     {
         public readonly Exception Exception;
-        public readonly T4LogSObject Object;
+        public readonly T4LogSErrorObject Object;
 
         private string strObjectFormatText;
         public string StrObjectFormatText
@@ -34,7 +34,7 @@ namespace T4LogS.Core
                         sb.Append(begin);
                         if (this.Object.Details != null)
                         {
-                            foreach (T4LogSDetail item in this.Object.Details)
+                            foreach (T4LogSErrorDetail item in this.Object.Details)
                             {
                                 sb.Append(replaceLoop(loop, item));
                             }
@@ -65,16 +65,16 @@ namespace T4LogS.Core
         public T4LogSWriteException(Exception ex, T4LogSType status, string description = "") : this(ex, ex.GetType(), status, description) { }
         public T4LogSWriteException(Exception ex, Type targetType, T4LogSType status, string description = "")
         {
-            if (this.status == T4LogSType.Time)
+            if (this.status != T4LogSType.Error)
             {
-                throw new FormatException("T4LogSWriteException unsupported T4LogSType.Time. Please select T4LogSWriteTime");
+                throw new FormatException(nameof(T4LogSWriteException) + " unsupported " + nameof(T4LogSType) + "." + status.ToString() + "");
             }
             this.isExited = false;
             this.status = status;
             this.Exception = ex;
-            this.Object = new T4LogSObject()
+            this.Object = new T4LogSErrorObject()
             {
-                Details = new List<T4LogSDetail>(),
+                Details = new List<T4LogSErrorDetail>(),
                 DateTime = DateTime.Now,
                 Message = this.Exception.Message,
                 StackTrace = this.Exception.StackTrace,
@@ -82,17 +82,17 @@ namespace T4LogS.Core
             };
         }
 
-        public void AppendDetail(T4LogSDetail value)
+        public void AppendDetail(T4LogSErrorDetail value)
         {
             if (T4LogSOptions.saveDetails)
             {
-                var lstTemp = new List<T4LogSDetail>(this.Object.Details);
+                var lstTemp = new List<T4LogSErrorDetail>(this.Object.Details);
                 lstTemp.Add(value);
-                this.Object.Details = new List<T4LogSDetail>(lstTemp);
+                this.Object.Details = new List<T4LogSErrorDetail>(lstTemp);
             }
         }
 
-        public void AppendRangeDetail(IEnumerable<T4LogSDetail> value)
+        public void AppendRangeDetail(IEnumerable<T4LogSErrorDetail> value)
         {
             if (T4LogSOptions.saveDetails)
             {
@@ -107,9 +107,9 @@ namespace T4LogS.Core
         {
             if (T4LogSOptions.saveDetails)
             {
-                List<T4LogSDetail> prop = new List<T4LogSDetail>(this.Exception.GetType().GetProperties().ToT4LogObjects(this.Exception));
-                prop.AddRange(new List<T4LogSDetail>(this.Object.Details));
-                this.Object.Details = new List<T4LogSDetail>(prop);
+                List<T4LogSErrorDetail> prop = new List<T4LogSErrorDetail>(this.Exception.GetType().GetProperties().ToT4LogObjects(this.Exception));
+                prop.AddRange(new List<T4LogSErrorDetail>(this.Object.Details));
+                this.Object.Details = new List<T4LogSErrorDetail>(prop);
             }
         }
 
@@ -119,7 +119,7 @@ namespace T4LogS.Core
             {
                 this.isExited = true;
                 this.addPropertiesObjectDetails();
-                string fileName = System.IO.Path.Combine(this.PathLogs, DateTime.Now.Ticks.ToString() + ".");
+                string fileName = System.IO.Path.Combine(this.FolderLogTypeToday, DateTime.Now.Ticks.ToString() + ".");
                 if (T4LogSOptions.saveFileJson)
                 {
                     System.IO.File.WriteAllText(fileName + T4LogSOptions.extensionJson, this.StrObject);
@@ -141,7 +141,7 @@ namespace T4LogS.Core
                 .Replace(T4LogSCommon.replaceFormatText(nameof(this.Object.DateTime)), this.Object.DateTime.ToString(T4LogSCommon.formatDateTimeFull));
         }
 
-        private string replaceLoop(string obj, T4LogSDetail item)
+        private string replaceLoop(string obj, T4LogSErrorDetail item)
         {
             return obj
                 .Replace(T4LogSCommon.replaceFormatText(nameof(item.Name)), T4LogSCommon.replaceNewLine(item.Name))

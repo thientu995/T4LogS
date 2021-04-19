@@ -1,7 +1,7 @@
-﻿{
+{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:62179",
       "sslPort": 0
@@ -12,16 +12,18 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "T4LogSManagementProject": "../T4LogS.Example.T4LogSManagement",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "T4LogS.Example.ASPCore": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
+        "T4LogSManagementProject": "../T4LogS.Example.T4LogSManagement",
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "http://localhost:9603"
     }
   }
 }

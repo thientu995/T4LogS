@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -25,8 +26,13 @@ namespace T4LogS.Example.ASPCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddT4LogS(options =>
             {
+                string projectManagement = new DirectoryInfo(Environment.GetEnvironmentVariable("T4LogSManagementProject")).FullName;
+                string folderRoot = Path.Combine(projectManagement, "T4LogS", System.Reflection.Assembly.GetEntryAssembly().GetName().Name);//Save sql or similar for high performance
+
+                options.LogsPath = folderRoot;
                 options.SaveFileCustom = true;
                 options.SaveDetails = true;// View details: get all property exception
                 options.SaveFileJson = true;// Accept save file json

@@ -45,7 +45,7 @@ namespace T4LogS.Core
             if (!this.isExited)
             {
                 this.isExited = true;
-                string fileName = System.IO.Path.Combine(this.PathLogs, funcName + "." + T4LogSOptions.extensionLog);
+                string fileName = System.IO.Path.Combine(this.FolderLogTypeToday, funcName + "." + T4LogSOptions.extensionLog);
 
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Start " + dtStart);

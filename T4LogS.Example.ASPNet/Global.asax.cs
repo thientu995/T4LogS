@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace T4LogS.Example.ASPNet
@@ -13,11 +13,11 @@ namespace T4LogS.Example.ASPNet
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-            T4LogS.Core.T4LogSOptions option = new Core.T4LogSOptions() {
-                LogsPath = Server.MapPath("T4LogS")
+            string path = Path.Combine(Server.MapPath("~/"), "../T4LogS.Example.T4LogSManagement", "T4LogS", "T4LogS.Example.ASPNet");
+            T4LogS.Core.T4LogSOptions option = new Core.T4LogSOptions()
+            {
+                LogsPath = path
             };
         }
 

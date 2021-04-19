@@ -52,7 +52,7 @@ namespace T4LogS.Core
         {
             get
             {
-                return LogsPath;
+                return logsPath;
             }
             set
             {

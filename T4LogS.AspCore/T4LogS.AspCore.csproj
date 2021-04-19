@@ -25,6 +25,7 @@ What is T4LogS?
     <PackageTags>t4vn, t4logs, Exception,Logs System,ASP.NET CORE</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/thientu995/T4LogS</RepositoryUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
