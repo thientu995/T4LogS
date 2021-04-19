@@ -6,12 +6,10 @@ namespace T4LogS.Core
 {
     public class T4LogSRead : T4LogSBase
     {
-        public string pathRoot { get; set; }
-        public bool isChild { get; set; }
-        public T4LogSRead(string pathRoot, bool isGetChild = true)
+        public bool lazyLoading { get; set; }
+        public T4LogSRead(bool lazyLoading = true)
         {
-            this.pathRoot = pathRoot;
-            this.isChild = isGetChild;
+            this.lazyLoading = lazyLoading;
         }
 
         public IEnumerable<T4LogSReadObject> GetDirectoryFromRoot => GetDirectories(new T4LogSReadObject()
@@ -19,7 +17,7 @@ namespace T4LogS.Core
             Parent = null,
             Name = null,
             IsFile = false,
-            Location = this.pathRoot,
+            Location = T4LogSOptions.logsPath,
             Level = 0,
         });
 
@@ -43,7 +41,7 @@ namespace T4LogS.Core
                     Level = folder.Level + 1,
                 };
                 result.Add(obj);
-                if (this.isChild)
+                if (!this.lazyLoading)
                 {
                     result.AddRange(GetDirectories(obj));
                 }

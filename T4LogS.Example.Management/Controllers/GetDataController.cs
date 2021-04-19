@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using T4LogS.Core;
 
-namespace T4LogS.Example.T4LogSManagement.Controllers
+namespace T4LogS.Example.Management.Controllers
 {
     [Route("api/[controller]")]
     public class GetDataController : Controller
@@ -15,8 +15,8 @@ namespace T4LogS.Example.T4LogSManagement.Controllers
         [HttpGet("[action]")]
         public IActionResult GetPath()
         {
-            string folderRoot = Path.Combine(Directory.GetCurrentDirectory(), "T4LogS");
-            var read = new T4LogSRead(folderRoot, true);
+            //string folderRoot = Path.Combine(Directory.GetCurrentDirectory(), "T4LogS");
+            var read = new T4LogSRead(true);
             var a = read.GetDirectoryFromRoot;
             StringBuilder sb = new StringBuilder();
             foreach (var item in read.GetDirectoryFromRoot)

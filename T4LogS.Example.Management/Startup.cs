@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
+using T4LogS.AspCore;
 
-namespace T4LogS.Example.T4LogSManagement
+namespace T4LogS.Example.Management
 {
     public class Startup
     {
@@ -19,6 +21,10 @@ namespace T4LogS.Example.T4LogSManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddT4LogS(options =>
+            {
+                options.LogsPath = Path.Combine(Directory.GetCurrentDirectory(), "T4LogS");
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the Angular files will be served from this directory

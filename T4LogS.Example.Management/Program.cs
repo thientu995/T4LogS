@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace T4LogS.Example.T4LogSManagement
+namespace T4LogS.Example.Management
 {
     public class Program
     {

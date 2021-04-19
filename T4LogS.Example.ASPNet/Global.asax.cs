@@ -14,7 +14,7 @@ namespace T4LogS.Example.ASPNet
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            string path = Path.Combine(Server.MapPath("~/"), "../T4LogS.Example.T4LogSManagement", "T4LogS", "T4LogS.Example.ASPNet");
+            string path = Path.Combine(Server.MapPath("~/"), "../T4LogS.Example.Management", "T4LogS", "T4LogS.Example.ASPNet");
             T4LogS.Core.T4LogSOptions option = new Core.T4LogSOptions()
             {
                 LogsPath = path

@@ -12,7 +12,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "T4LogSManagementProject": "../T4LogS.Example.T4LogSManagement",
+        "T4LogSManagementProject": "../T4LogS.Example.Management",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
@@ -20,7 +20,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "T4LogSManagementProject": "../T4LogS.Example.T4LogSManagement",
+        "T4LogSManagementProject": "../T4LogS.Example.Management",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:9603"
