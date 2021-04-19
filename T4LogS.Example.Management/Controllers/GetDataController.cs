@@ -12,30 +12,63 @@ namespace T4LogS.Example.Management.Controllers
     [Route("api/[controller]")]
     public class GetDataController : Controller
     {
+        const bool lazyLoading = false;
+
         [HttpGet("[action]")]
-        public IActionResult GetPath()
+        public IActionResult GetPath(T4LogSReadObject objFodler = null)
         {
-            //string folderRoot = Path.Combine(Directory.GetCurrentDirectory(), "T4LogS");
-            var read = new T4LogSRead(true);
-            var a = read.GetDirectoryFromRoot;
-            StringBuilder sb = new StringBuilder();
-            foreach (var item in read.GetDirectoryFromRoot)
+            if (!objFodler.IsFile)
             {
-                for (int i = 0; i < item.Level; i++)
+                IEnumerable<T4LogSReadObject> dics;
+                var read = new T4LogSRead(lazyLoading);
+                if (objFodler != null)
                 {
-                    sb.Append("&nbsp;&nbsp;&nbsp;&nbsp;");
+                    dics = read.GetDirectoryFromRoot;
                 }
-                sb.Append(item.Name + "<br>");
-                foreach (var file in read.GetFiles(item))
+                else
                 {
-                    for (int i = 0; i < file.Level; i++)
-                    {
-                        sb.Append("&nbsp;&nbsp;&nbsp;&nbsp;");
-                    }
-                    sb.Append("File: " + file.Name + "<br>");
+                    dics = read.GetDirectories(objFodler);
                 }
+                return Json(dics);
             }
-            return Content(sb.ToString(), "text/html");
+            else
+            {
+                string contentFile = System.IO.File.ReadAllText(objFodler.Location);
+                return Json(contentFile);
+            }
+
         }
+
+        //[HttpGet("[action]")]
+        //public IActionResult GetPath(T4LogSReadObject onjFodler = null)
+        //{
+        //    var read = new T4LogSRead(false);
+        //    StringBuilder sb = new StringBuilder();
+        //    var dics = new List<T4LogSReadObject>();
+        //    if (onjFodler != null)
+        //    {
+        //        dics = read.GetDirectoryFromRoot.ToList();
+        //    }
+        //    else
+        //    {
+        //        dics = read.GetDirectories(onjFodler).ToList();
+        //    }
+        //    //foreach (var item in dics)
+        //    //{
+        //    //    for (int i = 0; i < item.Level; i++)
+        //    //    {
+        //    //        sb.Append("&nbsp;&nbsp;&nbsp;&nbsp;");
+        //    //    }
+        //    //    foreach (var file in read.GetFiles(item))
+        //    //    {
+        //    //        for (int i = 0; i < file.Level; i++)
+        //    //        {
+        //    //            sb.Append("&nbsp;&nbsp;&nbsp;&nbsp;");
+        //    //        }
+        //    //        sb.Append("File: " + file.Name + "<br>");
+        //    //    }
+        //    //}
+        //    return Content(sb.ToString(), "text/html");
+        //}
     }
 }
