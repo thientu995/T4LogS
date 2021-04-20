@@ -46,6 +46,7 @@ namespace T4LogS.Core
                     result.AddRange(GetDirectories(obj));
                 }
             }
+            result.AddRange(GetFiles(folder));
             return result;
         }
 
@@ -75,6 +76,16 @@ namespace T4LogS.Core
                 result.Add(obj);
             }
             return result;
+        }
+
+        public T4LogSReadObject GetContent(T4LogSReadObject file)
+        {
+            if (!file.IsFile)
+            {
+                throw new FormatException("Input " + nameof(T4LogSReadObject) + " was not in a correct format.");
+            }
+            file.Content = System.IO.File.ReadAllText(file.Location);
+            return file;
         }
     }
 }

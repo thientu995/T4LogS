@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using System.IO;
 using T4LogS.AspCore;
 
@@ -21,11 +22,23 @@ namespace T4LogS.Example.Management
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder => builder.WithOrigins("http://localhost:4200")
+                    .AllowCredentials()
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                );
+            });
             services.AddT4LogS(options =>
             {
                 options.LogsPath = Path.Combine(Directory.GetCurrentDirectory(), "T4LogS");
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())//turn off lowercase model
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -46,6 +59,7 @@ namespace T4LogS.Example.Management
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseCors();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 

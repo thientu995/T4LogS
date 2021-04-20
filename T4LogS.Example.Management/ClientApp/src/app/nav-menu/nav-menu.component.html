@@ -1,4 +1,4 @@
-<div class='main-nav'>
+<div class='main-nav' *ngIf="app.data">
     <div class='navbar navbar-inverse'>
         <div class='navbar-header'>
             <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
@@ -12,7 +12,12 @@
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
             <ul class='nav navbar-nav'>
-                <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+                <li *ngFor="let item of app.data">
+                    <a [routerLink]='["/", app.encodeFormatRoute(item)]' (click)='collapse()' *ngIf="item.Level == 1">
+                        <span>{{item.Name}}</span>
+                    </a>
+                </li>
+                <!-- <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
                     <a [routerLink]='["/"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
@@ -26,7 +31,7 @@
                     <a [routerLink]='["/fetch-data"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-th-list'></span> Fetch data
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

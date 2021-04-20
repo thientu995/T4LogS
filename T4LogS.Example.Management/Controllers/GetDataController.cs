@@ -9,34 +9,40 @@ using T4LogS.Core;
 
 namespace T4LogS.Example.Management.Controllers
 {
+    public class ParameterGetDataController
+    {
+        public T4LogSReadObject obj { get; set; }
+        public string lazyLoading { get; set; }
+    }
     [Route("api/[controller]")]
     public class GetDataController : Controller
     {
-        const bool lazyLoading = false;
 
-        [HttpGet("[action]")]
-        public IActionResult GetPath(T4LogSReadObject objFodler = null)
+        [HttpPost("[action]")]
+        public IActionResult GetPath(bool lazyLoading, [FromBody] T4LogSReadObject param)
         {
-            if (!objFodler.IsFile)
+            var read = new T4LogSRead(lazyLoading);
+            IEnumerable<T4LogSReadObject> dics;
+            if (param == null)
             {
-                IEnumerable<T4LogSReadObject> dics;
-                var read = new T4LogSRead(lazyLoading);
-                if (objFodler != null)
-                {
-                    dics = read.GetDirectoryFromRoot;
-                }
-                else
-                {
-                    dics = read.GetDirectories(objFodler);
-                }
-                return Json(dics);
+                dics = read.GetDirectoryFromRoot;
             }
             else
             {
-                string contentFile = System.IO.File.ReadAllText(objFodler.Location);
-                return Json(contentFile);
-            }
+                if (!param.IsFile)
+                {
+                    dics = read.GetDirectories(param);
+                }
+                else
+                {
 
+                    dics = new List<T4LogSReadObject>()
+                    {
+                        read.GetContent(param)
+                    };
+                }
+            }
+            return Json(dics);
         }
 
         //[HttpGet("[action]")]

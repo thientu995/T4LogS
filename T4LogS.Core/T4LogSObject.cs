@@ -23,13 +23,12 @@ namespace T4LogS.Core
     public class T4LogSReadObject
     {
         //public IEnumerable<T4LogSReadObject> Subdirectories { get; internal set; }
-        public string Parent { get; internal set; }
-        //public string Content { get; internal set; }
-        public string Name { get; internal set; }
-        public string NameFormat { get; internal set; }
-        public string Location { get; internal set; }
-        public bool IsFile { get; internal set; }
-        public int Level { get; internal set; }
+        public string Parent { get; set; }
+        public string Content { get; set; }
+        public string Name { get; set; }
+        public string Location { get; set; }
+        public bool IsFile { get; set; }
+        public int Level { get; set; }
     }
 
     public enum T4LogSType
